@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easy-kart-orders-sm
+  namespace: easy-kart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: easy-kart-orders-sm #This should be same label
+  template:
+    metadata:
+      labels:
+        app: easy-kart-orders-sm #This should be same label
+    spec:
+      containers:
+      - name: easy-kart-orders-sm
+        image: pdesaidocker/easy-kart-api-orders-sm:{{imageTag}}
+        ports:
+        - containerPort: 8080 #port defined in image dockerfile
+        env:
+        - name: ConnectionStrings__AzureServiceBus
+          valueFrom:
+            configMapKeyRef:
+              name: easy-kart-orders-sm-config-map # ConfigMap name
+              key: azservicebus         # Key in the ConfigMap
+     

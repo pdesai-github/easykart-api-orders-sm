@@ -1,0 +1,6 @@
+@EasyKart.Orders.StateMachine_HostAddress = http://localhost:5233
+
+GET {{EasyKart.Orders.StateMachine_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
