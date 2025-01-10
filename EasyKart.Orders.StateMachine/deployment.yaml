@@ -16,12 +16,19 @@ spec:
       containers:
       - name: easy-kart-orders-sm
         image: pdesaidocker/easy-kart-api-orders-sm:{{imageTag}}
+        resources:
+          requests:
+            memory: "128Mi"   # Minimum memory for the container to function
+            cpu: "25m"       # Minimum CPU for the container to function
+          limits:
+            memory: "256Mi"   # Maximum memory that can be used
+            cpu: "50m"       # Maximum CPU that can be used
         ports:
         - containerPort: 8080 #port defined in image dockerfile
         env:
         - name: ConnectionStrings__AzureServiceBus
           valueFrom:
-            configMapKeyRef:
-              name: easy-kart-orders-sm-config-map # ConfigMap name
-              key: azservicebus         # Key in the ConfigMap
+             secretKeyRef:
+                name: easy-kart-secret  
+                key: azservicebusconnstr
      
